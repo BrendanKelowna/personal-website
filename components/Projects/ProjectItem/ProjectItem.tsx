@@ -1,16 +1,13 @@
 import { Stack } from "@mui/material";
 import React from "react";
 import Details from "../../Details";
-import PhotoCarousel, { Photo } from "../../PhotoCarousel";
+import PhotoCarousel, { Photo, PhotoCarouselProps } from "../../PhotoCarousel";
 import SubHeader from "../../SubHeader";
 
 //* Types
-export type ProjectItemProps = {
-  photos: Photo[];
+export type ProjectItemProps = PhotoCarouselProps & {
   title: string;
-  details?: string;
-  width: string | number;
-  height: string | number;
+  details?: string[];
 };
 
 //* Definitions
@@ -20,11 +17,8 @@ export type ProjectItemProps = {
 //* Helpers
 
 export default function ProjectItem({
-  photos,
   title,
   details,
-  height,
-  width,
   ...props
 }: React.PropsWithChildren<ProjectItemProps>): JSX.Element {
   //* Context
@@ -36,11 +30,14 @@ export default function ProjectItem({
   //* Handlers
 
   //* Renders
+  const detailsComp = details?.map((detail, key) => (
+    <Details key={key}>{detail}</Details>
+  ));
   return (
-    <Stack>
+    <Stack sx={{ pb: 2 }}>
       <SubHeader>{title}</SubHeader>
-      <PhotoCarousel photos={photos} height={height} width={width} />
-      {details && <Details>{details}</Details>}
+      {detailsComp}
+      <PhotoCarousel {...props} />
     </Stack>
   );
 }

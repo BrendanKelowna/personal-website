@@ -26,13 +26,13 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <Container role="main" className={styles.main}>
-        <Contact />
         <AboutMe />
         <Objective />
         <Employment />
         <Education />
         <Training />
         <Skills />
+        <Contact />
         <Projects />
       </Container>
       <ToTop />

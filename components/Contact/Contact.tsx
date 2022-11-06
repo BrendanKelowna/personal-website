@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import React from "react";
 import AppArtical from "../AppArtical";
 import AppLink from "../AppLink";
+import Details from "../Details";
 
 //* Types
 export type ContactProps = {};
@@ -27,8 +28,10 @@ export default function Contact({
   return (
     <AppArtical title="Contact">
       <Stack>
-        <p>Website made with NextJs 12, Material UI, Firebase hosting</p>
-        <p>Sorce code</p>
+        <div>Website made with NextJs 12, Material UI, Firebase hosting</div>
+        <AppLink href="https://github.com/BrendanKelowna/personal-website">
+          Sorce code
+        </AppLink>
         <AppLink href="mailto:brendan.kelly.kelowna@outlook.com">
           brendan.kelly.kelowna@outlook.com
         </AppLink>
