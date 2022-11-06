@@ -130,7 +130,7 @@ export default function Projects({
             "2020 August - October",
             `My Covid project was demolishing a pop-up tent trailer and building a travel trailer on the frame.
           We decided we wanted hard-sided travel trailer so we could camp earlier and later in the season.
-          We wanted a trailer that was small light and could sleep are big family which was hard to find.
+          We wanted a small trailer that could sleep our big family which was hard to find.
           The tent-trailers roof, corners, and front storage was rotten and needed repairs. 
           We decided to sacrifice the trailer and build on the frame. 
           There wasn't much wasted as we were able to reuse a lot of parts and sell what we didn't use. 
