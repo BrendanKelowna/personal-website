@@ -43,6 +43,7 @@ export default function AboutMe({
       {/* <Stack direction="row"> */}
       <Box sx={imageContainerStyle}>
         <Image
+          alt="Profile Picture"
           height={400}
           width={300}
           src="/images/profilepic.jpg"
