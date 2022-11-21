@@ -4,7 +4,7 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { Box, Dialog, Fab, Modal, SvgIcon } from "@mui/material";
 import Image from "next/image";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import { PhotoObj } from "../../Article";
+import { PhotoObj } from "../Article/Article";
 import { primaryOpacity } from "../../personal-website";
 
 //* Types
