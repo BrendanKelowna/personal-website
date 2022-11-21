@@ -6,6 +6,7 @@ import React from "react";
 export type AppLinkProps = MuiLinkProps & {
   nextProps?: Partial<NextLinkProps>;
   href: string;
+  newPage?: boolean;
 };
 
 //* Definitions
@@ -17,6 +18,7 @@ export type AppLinkProps = MuiLinkProps & {
 export default function AppLink({
   nextProps,
   href,
+  newPage,
   ...props
 }: React.PropsWithChildren<AppLinkProps>): JSX.Element {
   //* Context
@@ -30,7 +32,7 @@ export default function AppLink({
   //* Renders
   return (
     <NextLink href={href} passHref {...nextProps}>
-      <MUILink {...props} />
+      <MUILink target={newPage ? "_blank" : undefined} {...props} />
     </NextLink>
   );
 }

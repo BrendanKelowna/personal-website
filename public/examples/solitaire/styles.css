@@ -1,0 +1,540 @@
+/* ---- General ---- */
+body {
+  margin: 0;
+  background-color: green;
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: #000;
+}
+
+[draggable="true"] {
+  cursor: pointer;
+}
+
+/* ---- Layout ---- */
+#layout {
+  row-gap: 30px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* ---- Menu ---- */
+#menu {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #007d00;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 50, 0, 0) 0%,
+    rgba(0, 75, 0, 1) 50%,
+    rgba(0, 50, 0, 0) 100%
+  );
+}
+#menu .checkbox-label {
+  color: white;
+}
+/* ---- Winner Banner ---- */
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  align-items: center;
+  background-color: #0000005b;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.overlay > .container {
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background: radial-gradient(#3904bd, black);
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.overlay > .container::before {
+  content: "";
+  background: repeating-conic-gradient(
+    black 0deg,
+    transparent 11.5deg,
+    #8d3ea1ff 12deg,
+    transparent 12.5deg,
+    black 24deg
+  );
+  position: absolute;
+  width: 150vw;
+  height: 150vw;
+  animation: spin 10s infinite linear;
+}
+
+.overlay .winContainer,
+.overlay .winContainer::before {
+  border-radius: 30px;
+}
+
+.overlay .winContainer {
+  background-color: #430752;
+  position: relative;
+  margin: 20px;
+  padding: 0 30px;
+  box-shadow: 10px 10px 15px;
+}
+
+.overlay .winContainer::before,
+.overlay .winContainer::after {
+  content: " ";
+  position: absolute;
+  background-color: transparent;
+}
+
+.overlay .winContainer::before {
+  border: 16px solid rgb(161, 0, 0);
+  box-shadow: inset 0 0 30px black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.overlay .winContainer::after {
+  border: 8px solid rgb(110, 0, 0);
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  border-radius: 26px;
+}
+
+.overlay.hide {
+  display: none !important;
+}
+
+.overlay h1,
+.overlay h2 {
+  position: relative;
+  color: gold;
+}
+
+.overlay h1 {
+  font-size: 100px;
+  background: linear-gradient(gold, rgb(100 90 0), gold);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #d1b000;
+  filter: drop-shadow(6px 6px 6px black);
+  -webkit-filter: drop-shadow(6px 6px 6px black);
+}
+
+.overlay h2 {
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgba(161, 0, 0, 0.5);
+  text-shadow: 6px 6px 6px black;
+}
+/* ---- Stacks ---- */
+.stack {
+  top: 0;
+  left: 0;
+  min-width: 12vw;
+  min-height: 17vw;
+}
+
+.stack.playable::before {
+  content: "★";
+  font-size: 10vw;
+  margin: auto;
+  color: cyan;
+  animation: spinFade 5s infinite linear;
+}
+@keyframes spinFade {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.ace-stack {
+  position: relative;
+}
+
+.ace-stack > div {
+  position: absolute;
+}
+
+.play-stack {
+  display: grid;
+  grid-template-rows: repeat(19, 3vw);
+}
+
+#deck-stack {
+  width: 12vw;
+  display: grid;
+  grid-template-columns: repeat(52, 0.5px);
+}
+
+#flipped-stack {
+  display: grid;
+  position: relative;
+  grid-template-columns: 3vw 3vw 3vw;
+  grid-auto-rows: 0;
+}
+
+#flipped-stack .card:nth-last-child(1) {
+  grid-column-start: 3;
+}
+
+#flipped-stack .card:nth-last-child(2) {
+  grid-column-start: 2;
+}
+#flipped-stack .card:nth-last-child(3) {
+  grid-column-start: 1;
+}
+
+/* ---- Card ---- */
+.card.placeHolder {
+  opacity: 0.2;
+}
+
+.card {
+  user-select: none;
+  width: 12vw;
+  height: 17vw;
+  overflow: hidden;
+  position: relative;
+  perspective: 1000px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+}
+.card > .inner {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+  height: 90%;
+  width: 90%;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card .number .suit {
+  color: inherit;
+}
+
+.card.playable::before {
+  z-index: -1;
+  content: "";
+  height: 20vw;
+  width: 20vw;
+  position: absolute;
+  background: transparent;
+  background-image: conic-gradient(
+    cyan,
+    #00000000,
+    cyan,
+    #00000000,
+    cyan,
+    #00000000,
+    cyan,
+    #00000000,
+    cyan
+  );
+  animation: spin 5s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card.move {
+  z-index: 10;
+  transition: transform 0.3s ease-out;
+}
+
+.card.dragging > .inner > .back {
+  opacity: 0;
+}
+
+.card.show > .inner {
+  transform: rotateY(180deg);
+}
+
+.card > .inner > .front {
+  transform: rotateY(180deg);
+}
+
+.card > .inner > .front,
+.card > .inner > .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.card > .inner > .back > div {
+  font-size: 4vw;
+}
+
+/* ---- Card Corners ---- */
+.corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+
+.corner.top {
+  top: 3px;
+  left: 3px;
+}
+
+.corner.bottom {
+  bottom: 3px;
+  right: 3px;
+  transform: rotate(180deg);
+}
+
+/* ---- Pips ---- */
+.pip-container {
+  padding: 0.5vw 2.5vw;
+}
+
+.pip-container,
+.card .back {
+  position: absolute;
+  display: grid;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-items: center;
+  font-size: 2.5vw;
+}
+
+.pip-1 {
+  font-size: 5vw;
+}
+
+.card .back,
+.pip-4,
+.pip-5,
+.pip-6,
+.pip-7,
+.pip-8,
+.pip-9,
+.pip-10 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.pip-5 :nth-child(1) {
+  grid-area: 1/1/2/2;
+}
+
+.pip-5 :nth-child(2) {
+  grid-area: 1/2/2/3;
+}
+
+.pip-5 :nth-child(3) {
+  grid-area: 2/1/3/2;
+}
+
+.pip-5 :nth-child(4) {
+  grid-area: 2/2/3/3;
+}
+
+.pip-5 :nth-child(5) {
+  grid-area: 1/1/3/3;
+}
+
+.pip-7 :nth-child(1) {
+  grid-area: 1/1/2/2;
+}
+
+.pip-7 :nth-child(2) {
+  grid-area: 1/2/2/3;
+}
+
+.pip-7 :nth-child(3) {
+  grid-area: 2/1/3/2;
+}
+
+.pip-7 :nth-child(4) {
+  grid-area: 2/2/3/3;
+}
+
+.pip-7 :nth-child(5) {
+  grid-area: 3/1/4/2;
+}
+
+.pip-7 :nth-child(6) {
+  grid-area: 3/2/4/3;
+}
+
+.pip-7 :nth-child(7) {
+  grid-area: 1/1/3/3;
+}
+
+.pip-8 :nth-child(1) {
+  grid-area: 1/1/2/2;
+}
+
+.pip-8 :nth-child(2) {
+  grid-area: 1/2/2/3;
+}
+
+.pip-8 :nth-child(3) {
+  grid-area: 2/1/3/2;
+}
+
+.pip-8 :nth-child(4) {
+  grid-area: 2/2/3/3;
+}
+
+.pip-8 :nth-child(5) {
+  grid-area: 3/1/4/2;
+}
+
+.pip-8 :nth-child(6) {
+  grid-area: 3/2/4/3;
+}
+
+.pip-8 :nth-child(7) {
+  grid-area: 1/1/3/3;
+}
+
+.pip-8 :nth-child(8) {
+  grid-area: 2/1/4/3;
+}
+
+.pip-9 :nth-child(1) {
+  grid-area: 1/1/2/2;
+}
+
+.pip-9 :nth-child(2) {
+  grid-area: 1/2/2/3;
+}
+
+.pip-9 :nth-child(3) {
+  grid-area: 2/1/3/2;
+}
+
+.pip-9 :nth-child(4) {
+  grid-area: 2/2/3/3;
+}
+
+.pip-9 :nth-child(5) {
+  grid-area: 3/1/4/2;
+}
+
+.pip-9 :nth-child(6) {
+  grid-area: 3/2/4/3;
+}
+
+.pip-9 :nth-child(7) {
+  grid-area: 4/1/5/2;
+}
+
+.pip-9 :nth-child(8) {
+  grid-area: 4/2/5/3;
+}
+
+.pip-9 :nth-child(9) {
+  grid-area: 1/1/5/-1;
+}
+
+.pip-10 :nth-child(1) {
+  grid-area: 1/1/2/2;
+}
+
+.pip-10 :nth-child(2) {
+  grid-area: 1/2/2/3;
+}
+
+.pip-10 :nth-child(3) {
+  grid-area: 2/1/3/2;
+}
+
+.pip-10 :nth-child(4) {
+  grid-area: 2/2/3/3;
+}
+
+.pip-10 :nth-child(5) {
+  grid-area: 3/1/4/2;
+}
+
+.pip-10 :nth-child(6) {
+  grid-area: 3/2/4/3;
+}
+
+.pip-10 :nth-child(7) {
+  grid-area: 4/1/5/2;
+}
+
+.pip-10 :nth-child(8) {
+  grid-area: 4/2/5/3;
+}
+
+.pip-10 :nth-child(9) {
+  grid-area: 1/1/3/3;
+}
+
+.pip-10 :nth-child(10) {
+  grid-area: 3/1/5/3;
+}

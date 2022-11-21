@@ -1,9 +1,13 @@
 import React from "react";
-import AppArtical from "../AppArtical";
-import SkillItem from "./SkillItem";
+import { Article } from "../Article/Article";
+import Section, { AppSectionProps } from "../Section";
+import SkillItem, { SkillItemProps } from "./SkillItem";
 
 //* Types
-export type SkillsProps = {};
+export type SkillsProps = Omit<SkillItemProps, "article"> & {
+  articles: Article[];
+  containerProps?: AppSectionProps;
+};
 
 //* Definitions
 
@@ -12,6 +16,8 @@ export type SkillsProps = {};
 //* Helpers
 
 export default function Skills({
+  articles,
+  containerProps,
   ...props
 }: React.PropsWithChildren<SkillsProps>): JSX.Element {
   //* Context
@@ -23,48 +29,12 @@ export default function Skills({
   //* Handlers
 
   //* Renders
+  const skillElements = articles.map((article) => (
+    <SkillItem key={article.id} article={article} {...props} />
+  ));
   return (
-    <AppArtical title="Skills and Hobbies">
-      <SkillItem
-        title="Basic tool skills"
-        details="Tape measure, hammer, miter saw, table saw, power tools, hand tools"
-      />
-      <SkillItem
-        title="Handyman skills"
-        details="Painting, tiling, flooring, electric, plumbing, carpentry, hvac"
-      />
-      <SkillItem
-        title="Drywall and finishing skills"
-        details="Hanging, taping, floating, sanding"
-      />
-      <SkillItem
-        title="Beginner welding skills"
-        details="Flux core welding, grinding, sanding, prepping"
-      />
-      <SkillItem
-        title="Automotive maintenance and repair"
-        details="Trouble shooting, engine swap, oil and tire change"
-      />
-      <SkillItem
-        title="Appliance repair and maintenance"
-        details="Cupcasions kitchen equipment upkeep"
-      />
-      <SkillItem
-        title="Computer programming skills"
-        details="Order by strongest: ts, js, html, css, python, c, c++, sql, php"
-      />
-      <SkillItem
-        title="Arduino microcontrollers"
-        details="Arduino manufactures hardware and designs software software enabling users to create interactive electronic objects with microcontrollers written in (C++)"
-      />
-      <SkillItem
-        title="Raspberry pi computers"
-        details="RPI is a small low-power, always-on, single-board, lunix computer that I have programmed to auto-backup phone pictures, media center (kodi), home automation hub (home assistant), auto-download TV shows"
-      />
-      <SkillItem
-        title="Home automation knowledge"
-        details="My house runs Home Assistant hub locally with Sonoff wifi switches, flashed with Tasmota using MQTT protocol. This way this system is not dependent on a cloud or external internet"
-      />
-    </AppArtical>
+    <Section title="Skills and Hobbies" {...containerProps}>
+      {skillElements}
+    </Section>
   );
 }

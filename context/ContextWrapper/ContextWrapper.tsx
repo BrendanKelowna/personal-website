@@ -1,5 +1,6 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
+import startFirebaseApp from "../../configure/firebase";
 import { primaryColor } from "../../personal-website";
 
 //* Types
@@ -16,6 +17,7 @@ const theme = createTheme({
     },
   },
 });
+const fbApp = startFirebaseApp();
 
 //* Styling
 

@@ -1,2 +1,2 @@
-export * from "./SubHeader";
 export { default } from "./SubHeader";
+export * from "./SubHeader";

@@ -1,8 +1,9 @@
 import { Stack } from "@mui/material";
 import React from "react";
-import Details from "../../Details";
+import ArticleDetails from "../../Article/Details";
+import ArticleContent from "../../Article/Content";
 import PhotoCarousel, { Photo, PhotoCarouselProps } from "../../PhotoCarousel";
-import SubHeader from "../../SubHeader";
+import ArticleHeader from "../../Article/Header";
 
 //* Types
 export type ProjectItemProps = PhotoCarouselProps & {
@@ -31,12 +32,12 @@ export default function ProjectItem({
 
   //* Renders
   const detailsComp = details?.map((detail, key) => (
-    <Details key={key}>{detail}</Details>
+    <ArticleDetails key={key}>{detail}</ArticleDetails>
   ));
   return (
     <Stack sx={{ pb: 2 }}>
-      <SubHeader>{title}</SubHeader>
-      {detailsComp}
+      <ArticleHeader>{title}</ArticleHeader>
+      <ArticleContent>{detailsComp}</ArticleContent>
       <PhotoCarousel {...props} />
     </Stack>
   );

@@ -1,9 +1,11 @@
-import { Stack } from "@mui/material";
 import React from "react";
-import AppArtical from "../AppArtical";
+import Default, { DefaultProps } from "../Article/Default";
+import Section, { AppSectionProps } from "../Section";
 
 //* Types
-export type ObjectiveProps = {};
+export type ObjectiveProps = DefaultProps & {
+  containerProps?: AppSectionProps;
+};
 
 //* Definitions
 
@@ -12,6 +14,7 @@ export type ObjectiveProps = {};
 //* Helpers
 
 export default function Objective({
+  containerProps,
   ...props
 }: React.PropsWithChildren<ObjectiveProps>): JSX.Element {
   //* Context
@@ -24,10 +27,8 @@ export default function Objective({
 
   //* Renders
   return (
-    <AppArtical title="Carrer Objective">
-      <Stack>
-        To obtain a career in the Skilled Trades or Software Development
-      </Stack>
-    </AppArtical>
+    <Section title="Career Objective" {...containerProps}>
+      <Default {...props} />
+    </Section>
   );
 }

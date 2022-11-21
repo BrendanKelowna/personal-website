@@ -4,10 +4,11 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { Box, Dialog, Fab, Modal, SvgIcon } from "@mui/material";
 import Image from "next/image";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import { PhotoObj } from "../../Article";
 import { primaryOpacity } from "../../personal-website";
 
 //* Types
-export type Photo = { title: string; disciption?: string; url: string };
+export type Photo = PhotoObj;
 export type PhotoCarouselProps = {
   photos: Photo[];
   height: string | number;
@@ -128,7 +129,7 @@ export default function PhotoCarousel({
       <Box style={_containerStyle} key={photo.title}>
         <Image
           style={imageStyles}
-          src={photo.url}
+          src={photo.href}
           alt={photo.title}
           width={width}
           height={height}
@@ -156,7 +157,7 @@ export default function PhotoCarousel({
         >
           <Image
             style={imageStyles}
-            src={photos[index].url}
+            src={photos[index].href}
             alt={photos[index].title}
             layout="fill"
             objectFit="contain"

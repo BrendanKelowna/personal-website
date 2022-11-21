@@ -1,9 +1,13 @@
 import React from "react";
-import AppArtical from "../AppArtical";
-import EmploymentItem from "./EmploymentItem";
+import { EmploymentArticle } from "../Article/Article";
+import Section, { AppSectionProps } from "../Section";
+import EmploymentItem, { EmploymentItemProps } from "./EmploymentItem";
 
 //* Types
-export type EmploymentProps = {};
+export type EmploymentProps = Omit<EmploymentItemProps, "article"> & {
+  containerProps?: AppSectionProps;
+  articles?: EmploymentArticle[];
+};
 
 //* Definitions
 
@@ -12,6 +16,8 @@ export type EmploymentProps = {};
 //* Helpers
 
 export default function Employment({
+  articles,
+  containerProps,
   ...props
 }: React.PropsWithChildren<EmploymentProps>): JSX.Element {
   //* Context
@@ -23,23 +29,12 @@ export default function Employment({
   //* Handlers
 
   //* Renders
+  const articlesElements = articles?.map((article) => (
+    <EmploymentItem key={article.id} article={article} {...props} />
+  ));
   return (
-    <AppArtical title="Employment">
-      <EmploymentItem
-        location="Central Okanagan Public Schools SD#23"
-        date="August 11, 2011 - present"
-        positions={[
-          {
-            name: "Custodian",
-            roles: [
-              "Cleaning school and facilities",
-              "General maintenance and upkeep",
-              "Security",
-              "Snow removal",
-            ],
-          },
-        ]}
-      />
-    </AppArtical>
+    <Section title="Employment" {...containerProps}>
+      {articlesElements}
+    </Section>
   );
 }

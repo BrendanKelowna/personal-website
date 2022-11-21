@@ -1,9 +1,13 @@
 import React from "react";
-import AppArtical from "../AppArtical";
-import EducationItem from "./EducationItem";
+import { Article } from "../Article/Article";
+import Section, { AppSectionProps } from "../Section";
+import EducationItem, { EducationItemProps } from "./EducationItem";
 
 //* Types
-export type EducationProps = {};
+export type EducationProps = Omit<EducationItemProps, "article"> & {
+  articles: Article[];
+  containerProps?: AppSectionProps;
+};
 
 //* Definitions
 
@@ -12,6 +16,8 @@ export type EducationProps = {};
 //* Helpers
 
 export default function Education({
+  articles,
+  containerProps,
   ...props
 }: React.PropsWithChildren<EducationProps>): JSX.Element {
   //* Context
@@ -23,20 +29,13 @@ export default function Education({
   //* Handlers
 
   //* Renders
+  const educationElements = articles.map((article) => (
+    <EducationItem key={article.id} article={article} {...props} />
+  ));
+
   return (
-    <AppArtical title="Education">
-      <EducationItem
-        title="Building Service Worker Certificate"
-        details={["Okanagan College Vernon 2011"]}
-      />
-      <EducationItem
-        title="Aircaft Maintenance Engineer - Structures"
-        details={["BCIT Kelowna airport 2007"]}
-      />
-      <EducationItem
-        title="High School Deploma"
-        details={["Rutland Senior Secondary 2006"]}
-      />
-    </AppArtical>
+    <Section title="Education" {...containerProps}>
+      {educationElements}
+    </Section>
   );
 }

@@ -1,9 +1,13 @@
 import React from "react";
-import AppArtical from "../AppArtical";
-import TrainingItem from "./TrainingItem";
+import { Article } from "../Article/Article";
+import Section, { AppSectionProps } from "../Section";
+import TrainingItem, { TrainingItemProps } from "./TrainingItem";
 
 //* Types
-export type TrainingProps = {};
+export type TrainingProps = {
+  articles: Article[];
+  containerProps?: AppSectionProps;
+};
 
 //* Definitions
 
@@ -12,6 +16,8 @@ export type TrainingProps = {};
 //* Helpers
 
 export default function Training({
+  articles,
+  containerProps,
   ...props
 }: React.PropsWithChildren<TrainingProps>): JSX.Element {
   //* Context
@@ -23,15 +29,18 @@ export default function Training({
   //* Handlers
 
   //* Renders
+  const trainingElements = articles.map((article) => (
+    <TrainingItem
+      key={article.id}
+      sx={{ mb: 1 }}
+      article={article}
+      detailProps={{ sx: { p: 0 } }}
+      {...props}
+    />
+  ));
   return (
-    <AppArtical title="Training">
-      <TrainingItem
-        title="Emergency First Aid & CPR, level C"
-        date="February 21, 2014"
-        exp="February 21, 2017"
-      />
-      <TrainingItem title="Respirator fit test" date="August 23, 2021" />
-      <TrainingItem title="Ladder / Roof training" date="October 25, 2019" />
-    </AppArtical>
+    <Section title="Training" {...containerProps}>
+      {trainingElements}
+    </Section>
   );
 }

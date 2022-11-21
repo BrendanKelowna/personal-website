@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { BoxProps } from "@mui/system";
 import React from "react";
 //* Types
-export type AppArticalProps = BoxProps &
+export type AppSectionProps = BoxProps &
   React.PropsWithChildren<{ title?: string }>;
 
 //* Definitions
@@ -11,11 +11,11 @@ export type AppArticalProps = BoxProps &
 
 //* Helpers
 
-export default function AppArtical({
+export default function AppSection({
   children,
   title,
   ...props
-}: AppArticalProps): JSX.Element {
+}: AppSectionProps): JSX.Element {
   //* Context
   const theme = useTheme();
 
@@ -28,7 +28,7 @@ export default function AppArtical({
   //* Renders
   return (
     <Box
-      component="article"
+      component="section"
       //sx={{ maxHeight: { xs: "initial", sm: "90vh" } }}
       {...props}
     >

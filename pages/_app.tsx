@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Copyright } from "../components/Copyright/Copyright";
 import ContextWrapper from "../context/ContextWrapper";
+import firebaseConfig from "../configure/firebase";
 
 const theme = createTheme();
 

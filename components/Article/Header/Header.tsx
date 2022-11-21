@@ -2,7 +2,7 @@ import { Typography, TypographyProps } from "@mui/material";
 import React from "react";
 
 //* Types
-export type SubHeaderProps = TypographyProps & {};
+export type ArticleHeaderProps = TypographyProps & {};
 
 //* Definitions
 
@@ -10,10 +10,10 @@ export type SubHeaderProps = TypographyProps & {};
 
 //* Helpers
 
-export default function SubHeader({
+export default function ArticleHeader({
   style,
   ...props
-}: React.PropsWithChildren<SubHeaderProps>): JSX.Element {
+}: React.PropsWithChildren<ArticleHeaderProps>): JSX.Element {
   //* Context
 
   //* State

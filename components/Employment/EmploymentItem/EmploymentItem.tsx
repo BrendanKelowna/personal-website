@@ -1,13 +1,11 @@
-import { List, ListItem, Stack, Typography } from "@mui/material";
 import React from "react";
-import SubHeader from "../../SubHeader";
+import { EmploymentArticle } from "../../Article/Article";
+import Default, { DefaultProps } from "../../Article/Default";
 
 //* Types
-export type PositionType = { name: string; roles: string[] };
-export type EmploymentItemProps = {
-  location: string;
-  date: string;
-  positions: PositionType[];
+export type EmploymentItemProps = DefaultProps & {
+  article: EmploymentArticle;
+  positionProps?: DefaultProps;
 };
 
 //* Definitions
@@ -17,9 +15,7 @@ export type EmploymentItemProps = {
 //* Helpers
 
 export default function EmploymentItem({
-  location,
-  date,
-  positions,
+  article,
   ...props
 }: React.PropsWithChildren<EmploymentItemProps>): JSX.Element {
   //* Context
@@ -31,36 +27,18 @@ export default function EmploymentItem({
   //* Handlers
 
   //* Renders
-  const positionComponents = positions.map((position, key) => (
-    <Position position={position} key={key} />
+  const positionComponents = article.positions?.map((position, key) => (
+    <Default
+      article={position}
+      key={key}
+      containerProps={{ sx: { mt: 1 } }}
+      detailProps={{ sx: { padding: 0, "&::before": { content: '"- "' } } }}
+    ></Default>
   ));
+
   return (
-    <Stack sx={{ mb: 1 }}>
-      <SubHeader>{location}</SubHeader>
-      <List sx={{ pt: 0 }}>
-        <ListItem sx={{ paddingTop: 0 }}>
-          <Typography sx={{ fontStyle: "italic" }}>{date}</Typography>
-        </ListItem>
-        {positionComponents}
-      </List>
-    </Stack>
+    <Default article={article} {...props}>
+      {positionComponents}
+    </Default>
   );
 }
-
-const Position = ({ position }: { position: PositionType }) => {
-  const roleComponents = position.roles.map((roles, key) => (
-    <Role role={roles} key={key} />
-  ));
-  return (
-    <div>
-      <ListItem sx={{ paddingY: 0 }}>
-        <SubHeader>{position.name}</SubHeader>
-      </ListItem>
-      {roleComponents}
-    </div>
-  );
-};
-
-const Role = ({ role }: { role: string }) => {
-  return <ListItem sx={{ paddingY: 0 }}>- {role}</ListItem>;
-};
